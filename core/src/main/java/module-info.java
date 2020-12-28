@@ -1,6 +1,9 @@
-module gradle.kotlin.template {
+module security4k.core {
     requires kotlin.reflect;
     requires kotlin.stdlib;
-    opens com.github.template;
-    exports com.github.template;
+    requires logger4k.core;
+    opens com.github.open_edgn.security4k.base64;
+    exports com.github.open_edgn.security4k.base64;
+    opens com.github.open_edgn.security4k.asymmetric.rsa;
+    exports com.github.open_edgn.security4k.asymmetric.rsa;
 }
