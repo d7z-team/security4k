@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.github.open_edgn.security4k.hash
 
 import com.github.open_edgn.security4k.hash.HashUtils.METHOD.*

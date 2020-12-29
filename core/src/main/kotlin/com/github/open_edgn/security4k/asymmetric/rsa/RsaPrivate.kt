@@ -13,7 +13,12 @@ import javax.crypto.Cipher
 /**
  * 私钥工具类
  */
-class RsaPrivate(key: String) : RSA(key, Cipher.PRIVATE_KEY), IPrivateKey {
+class RsaPrivate(
+    key: String,
+    signAlgorithm: String = defaultSignAlgorithm,
+    algorithm: String = defaultAlgorithm
+) :
+    RSA(key, Cipher.PRIVATE_KEY, signAlgorithm, algorithm), IPrivateKey {
     override fun sign(input: InputStream, algorithm: String): String {
         val signature = newSignature(algorithm)
         input.foreach { bytes, i ->
@@ -23,7 +28,7 @@ class RsaPrivate(key: String) : RSA(key, Cipher.PRIVATE_KEY), IPrivateKey {
     }
 
     override fun sign(input: InputStream): String {
-        return sign(input, defaultAlgorithm)
+        return sign(input, signAlgorithm)
     }
 
     override fun signText(data: String, algorithm: String, charset: Charset): String {
@@ -31,7 +36,7 @@ class RsaPrivate(key: String) : RSA(key, Cipher.PRIVATE_KEY), IPrivateKey {
     }
 
     override fun signText(data: String, charset: Charset): String {
-        return signText(data, defaultAlgorithm, charset)
+        return signText(data, signAlgorithm, charset)
     }
 
     private fun newSignature(algorithm: String): Signature {

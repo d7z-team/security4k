@@ -15,8 +15,18 @@ import javax.crypto.Cipher
 
 abstract class RSA(
     private val key: String,
-    private val keyType: Int
+    private val keyType: Int,
+    protected val signAlgorithm: String,
+    private val algorithm: String
 ) : Decoder, Encoder {
+
+    companion object {
+        @JvmStatic
+        protected val defaultSignAlgorithm: String = "SHA512WithRSA"
+
+        @JvmStatic
+        protected val defaultAlgorithm: String = "RSA/ECB/PKCS1Padding"
+    }
 
     // 原始密钥
     protected val rsaKeyData by lazy {
@@ -27,9 +37,7 @@ abstract class RSA(
     private val maxBlockSize: Int by lazy { encryptedBlockSize - 11 }
 
 
-    protected val defaultAlgorithm = "SHA512WithRSA"
     protected val transformation: String = "RSA"
-    private val algorithm = "RSA/ECB/PKCS1Padding"
 
     /**
      * 初始化 Cipher

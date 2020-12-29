@@ -13,7 +13,11 @@ import javax.crypto.Cipher
 /**
  * 公钥工具类
  */
-class RsaPublic(key: String) : RSA(key, Cipher.PUBLIC_KEY), IPublicKey {
+class RsaPublic(
+    key: String,
+    signAlgorithm: String = defaultSignAlgorithm,
+    algorithm: String = defaultAlgorithm
+) : RSA(key, Cipher.PUBLIC_KEY, signAlgorithm, algorithm), IPublicKey {
     override fun verify(input: InputStream, signText: String, algorithm: String): Boolean {
         val signature = newSignature(algorithm)
         input.foreach { bytes, i ->
@@ -23,7 +27,7 @@ class RsaPublic(key: String) : RSA(key, Cipher.PUBLIC_KEY), IPublicKey {
     }
 
     override fun verify(input: InputStream, signText: String): Boolean {
-        return verify(input, signText, defaultAlgorithm)
+        return verify(input, signText, signAlgorithm)
     }
 
     override fun verifyText(data: String, signText: String, algorithm: String, charset: Charset): Boolean {
@@ -31,7 +35,7 @@ class RsaPublic(key: String) : RSA(key, Cipher.PUBLIC_KEY), IPublicKey {
     }
 
     override fun verifyText(data: String, signText: String, charset: Charset): Boolean {
-        return verifyText(data, signText, defaultAlgorithm, charset)
+        return verifyText(data, signText, signAlgorithm, charset)
     }
 
     private fun newSignature(algorithm: String): Signature {
