@@ -2,6 +2,7 @@ package com.github.open_edgn.security4k.asymmetric.universal
 
 import java.io.InputStream
 import java.io.OutputStream
+import java.nio.charset.Charset
 
 /**
  * 加密数据
@@ -16,4 +17,14 @@ interface Encoder {
      * @param cipherStream OutputStream 密文
      */
     fun encode(plainStream: InputStream, cipherStream: OutputStream)
+
+
+    /**
+     * 加密文字
+     *
+     * @param plainText String 明文
+     * @param charset Charset 编码
+     * @return String 密文
+     */
+    fun encodeText(plainText: String, charset: Charset = Charsets.UTF_8): String
 }

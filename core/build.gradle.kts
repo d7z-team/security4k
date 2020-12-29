@@ -21,6 +21,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")
     testImplementation("com.github.OpenEdgn.Logger4K:logger-console:1.3.1")
     testImplementation("org.junit.platform:junit-platform-launcher:1.6.2")
+    testImplementation("com.github.OpenEdgn.Logger4K:core:1.3.1")
+    testImplementation("com.github.OpenEdgn.Logger4K:logger-console:1.3.1")
 }
 
 tasks.test {

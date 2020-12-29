@@ -57,7 +57,7 @@ object Base64Utils {
                 }
                 out.append(line.concatToString(0, lineSize)).append("\r\n")
             }
-            out.toString()
+            out.trimEnd().toString()
         } else {
             bf.toString()
         }

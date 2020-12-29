@@ -18,4 +18,5 @@ internal inline fun <T : InputStream> T.foreach(bufferSize: Int = 4096, func: T.
         }
         func(b, len)
     }
+    close()
 }

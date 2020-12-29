@@ -38,7 +38,7 @@ object HashUtils {
      * @param method METHOD 哈希值算法
      * @return String 哈希值
      */
-    fun loadTextHash(data: String, charset: Charset, method: METHOD): String {
+    fun loadTextHash(data: String, charset: Charset = Charsets.UTF_8, method: METHOD): String {
         return loadHash(data.byteInputStream(charset), method)
     }
 
@@ -53,8 +53,8 @@ object HashUtils {
     fun asyncLoadHash(
         input: InputStream,
         method: METHOD,
-        hook: (String) -> Unit,
-        hookRuntime: (Runnable) -> Unit = { Thread(it).run() }
+        hookRuntime: (Runnable) -> Unit = { Thread(it).run() },
+        hook: (String) -> Unit
     ) {
         val runnable = Runnable {
             val calculate = loadHash(input, method)
