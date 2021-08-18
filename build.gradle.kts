@@ -3,7 +3,6 @@ group = "com.github.OpenEDGN.Security4K"
 buildscript {
     repositories {
         mavenLocal()
-        maven { url = project.uri("https://maven.aliyun.com/repository/public/") }
         mavenCentral()
         maven { url = project.uri("https://jitpack.io") }
     }
@@ -15,7 +14,6 @@ buildscript {
 allprojects {
     repositories {
         mavenLocal()
-        maven { url = project.uri("https://maven.aliyun.com/repository/public/") }
         mavenCentral()
         maven { url = project.uri("https://jitpack.io") }
     }
