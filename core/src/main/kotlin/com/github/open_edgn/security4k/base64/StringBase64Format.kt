@@ -6,6 +6,9 @@ import java.io.OutputStream
 import java.io.Reader
 import kotlin.math.abs
 
+/**
+ * Base64 加/解密算法
+ */
 internal class StringBase64Format : IBase64 {
     private val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 
@@ -25,16 +28,18 @@ internal class StringBase64Format : IBase64 {
     private fun internalEncode(bytes: ByteArray, len: Int, output: Appendable) {
         val bf = StringBuilder(bfSize * 8)
         for (i in 0 until len) {
-            bf.append(bytes[i].run {
-                if (this < 0) {
-                    abs(256 + this)
-                } else {
-                    toInt()
+            bf.append(
+                bytes[i].run {
+                    if (this < 0) {
+                        abs(256 + this)
+                    } else {
+                        toInt()
+                    }
+                }.run {
+                    String.format("%-8s", toString(2).reversed())
+                        .replace(" ", "0").reversed()
                 }
-            }.run {
-                String.format("%-8s", toString(2).reversed())
-                    .replace(" ", "0").reversed()
-            })
+            )
         }
         for (i in 0 until (bfSize - len)) {
             bf.append("00")
@@ -46,7 +51,6 @@ internal class StringBase64Format : IBase64 {
             output.append("=")
         }
     }
-
 
     override fun decode(input: Reader, output: OutputStream) {
         val chars = CharArray(deSize)
@@ -77,7 +81,8 @@ internal class StringBase64Format : IBase64 {
                 else -> throw IndexOutOfBoundsException("这不是一个base64字段：[$value]")
             }
             val reversed = String.format(
-                "%-6s", item
+                "%-6s",
+                item
                     .toString(2).reversed()
             ).replace(" ", "0").reversed()
             input.append(reversed)

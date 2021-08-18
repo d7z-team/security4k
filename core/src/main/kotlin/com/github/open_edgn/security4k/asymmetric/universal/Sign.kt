@@ -43,6 +43,4 @@ interface Sign {
      * @return String 签名
      */
     fun signText(data: String, charset: Charset = Charsets.UTF_8): String
-
-
 }

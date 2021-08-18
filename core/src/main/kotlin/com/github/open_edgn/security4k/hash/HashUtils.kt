@@ -42,7 +42,6 @@ object HashUtils {
         return loadHash(data.byteInputStream(charset), method)
     }
 
-
     /**
      * 异步计算哈希值
      *

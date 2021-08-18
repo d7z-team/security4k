@@ -1,8 +1,8 @@
 package com.github.open_edgn.security4k.asymmetric.rsa
 
-import com.github.open_edgn.security4k.asymmetric.universal.Decoder
-import com.github.open_edgn.security4k.asymmetric.universal.Encoder
 import com.github.open_edgn.security4k.base64.Base64Utils
+import com.github.open_edgn.security4k.universal.Decoder
+import com.github.open_edgn.security4k.universal.Encoder
 import com.github.open_edgn.security4k.utils.foreach
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -36,7 +36,6 @@ abstract class RSA(
     private val encryptedBlockSize by lazy { newInitCipher(Cipher.ENCRYPT_MODE).getOutputSize(1) }
     private val maxBlockSize: Int by lazy { encryptedBlockSize - 11 }
 
-
     protected val transformation: String = "RSA"
 
     /**
@@ -56,7 +55,6 @@ abstract class RSA(
         cipher.init(mode, key)
         return cipher
     }
-
 
     private fun doFinal(input: InputStream, output: OutputStream, mode: Int, bufferSize: Int) {
         val cipher = newInitCipher(mode)

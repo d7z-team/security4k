@@ -1,13 +1,9 @@
-group = "com.github.OpenEDGN.GradleKotlinTemplate"
-// 你可以修改此为自己的组织地址
-version = "last"
-// 你可以指定此为项目 版本号
+group = "com.github.OpenEDGN.Security4K"
 
 buildscript {
-    repositories{
+    repositories {
         mavenLocal()
         maven { url = project.uri("https://maven.aliyun.com/repository/public/") }
-        jcenter()
         mavenCentral()
         maven { url = project.uri("https://jitpack.io") }
     }
@@ -17,13 +13,13 @@ buildscript {
 }
 
 allprojects {
-    repositories{
+    repositories {
         mavenLocal()
         maven { url = project.uri("https://maven.aliyun.com/repository/public/") }
-        jcenter()
         mavenCentral()
         maven { url = project.uri("https://jitpack.io") }
-    }}
+    }
+}
 
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)

@@ -4,7 +4,6 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.io.Reader
 
-
 /**
  * Base 编、解码抽象接口
  */
@@ -28,6 +27,4 @@ internal interface IBase64 {
      * @param output OutputStream 原始数据接收容器
      */
     fun decode(input: Reader, output: OutputStream)
-
-
 }

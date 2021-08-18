@@ -1,6 +1,10 @@
 package com.github.open_edgn.security4k.base64
 
-import java.io.*
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import java.io.OutputStream
+import java.io.Reader
+import java.io.Writer
 import java.nio.charset.Charset
 
 object Base64Utils {
@@ -40,7 +44,6 @@ object Base64Utils {
 
     fun decodeStream(input: Reader, output: OutputStream) {
         impl.decode(input, output)
-
     }
 
     fun encodeBytes(data: ByteArray, format: Boolean = false): String {

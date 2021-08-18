@@ -44,6 +44,4 @@ interface Verify {
      * @return Boolean 校验结果
      */
     fun verifyText(data: String, signText: String, charset: Charset = Charsets.UTF_8): Boolean
-
-
 }

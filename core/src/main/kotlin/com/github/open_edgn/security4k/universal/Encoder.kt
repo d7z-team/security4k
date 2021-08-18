@@ -1,4 +1,4 @@
-package com.github.open_edgn.security4k.asymmetric.universal
+package com.github.open_edgn.security4k.universal
 
 import java.io.InputStream
 import java.io.OutputStream
@@ -17,7 +17,6 @@ interface Encoder {
      * @param cipherStream OutputStream 密文
      */
     fun encode(plainStream: InputStream, cipherStream: OutputStream)
-
 
     /**
      * 加密文字

@@ -17,8 +17,7 @@ import java.security.interfaces.RSAPublicKey
  * @param random SecureRandom 随机数生成器
  * @constructor
  */
-class RsaKeyGenerator
-    (
+class RsaKeyGenerator(
     keySize: Int = 2048,
     random: SecureRandom = SecureRandom.getInstanceStrong()
 ) : KeyGenerator {
@@ -40,5 +39,4 @@ class RsaKeyGenerator
     override val privateKeyText: String by lazy {
         Base64Utils.encodeBytes(privateKey.encoded, true)
     }
-
 }
