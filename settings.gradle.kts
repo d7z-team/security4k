@@ -1,2 +1,2 @@
-rootProject.name = "Security4k"
-include("core")
+rootProject.name = "security4k"
+include("security-core")

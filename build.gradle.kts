@@ -1,4 +1,4 @@
-group = "com.github.OpenEDGN.Security4K"
+group = "com.github.d7z-team"
 
 buildscript {
     repositories {
@@ -7,7 +7,7 @@ buildscript {
         maven { url = project.uri("https://jitpack.io") }
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
     }
 }
 
