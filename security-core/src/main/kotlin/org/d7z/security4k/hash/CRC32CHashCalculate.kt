@@ -2,6 +2,7 @@ package org.d7z.security4k.hash
 
 import org.d7z.security4k.utils.foreach
 import java.io.InputStream
+import java.util.Locale
 import java.util.zip.CRC32C
 
 class CRC32CHashCalculate(override val name: String = "CRC32C") : BaseHashCalculate {
@@ -10,6 +11,6 @@ class CRC32CHashCalculate(override val name: String = "CRC32C") : BaseHashCalcul
         input.foreach { bytes, i ->
             crc.update(bytes, 0, i)
         }
-        return crc.value.toString(16).toUpperCase()
+        return crc.value.toString(16).uppercase(Locale.getDefault())
     }
 }
