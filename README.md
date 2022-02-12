@@ -2,11 +2,11 @@
 
 > 依赖于 Java Security 的校验与加密算法
 
-[![](https://jitpack.io/v/OpenEdgn/Security4k.svg)](https://jitpack.io/#OpenEdgn/Security4k)
+[![](https://jitpack.io/v/d7z-team/security4k.svg)](https://jitpack.io/#d7z-team/security4k)
 
 ## 快速开始
 
-[点击此查看引入项目方案](https://jitpack.io/#OpenEdgn/Security4k)
+[点击此查看引入项目方案](https://jitpack.io/#d7z-team/security4k)
 
 ## LICENSE
 
