@@ -1,4 +1,4 @@
-name: LightDB CI
+name: security4k CI
 
 on:
   push:
