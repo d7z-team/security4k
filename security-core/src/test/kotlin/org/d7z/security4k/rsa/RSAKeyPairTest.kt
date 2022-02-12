@@ -1,10 +1,11 @@
-package org.d7z.security4k.asymmetric.rsa
+package org.d7z.security4k.rsa
 
 import org.junit.jupiter.api.Test
 
-internal class RsaKeyPairTest {
+internal class RSAKeyPairTest {
 
-    private val rsakey = RsaKeyGenerator(1024 * 4)
+    private val rsakey = RSAKeyGenerator(1024 * 4)
+
     @Test
     fun getPublicKeyText() {
         println(rsakey.publicKeyText)

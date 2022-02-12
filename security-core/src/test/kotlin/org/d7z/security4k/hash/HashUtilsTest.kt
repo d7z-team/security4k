@@ -9,21 +9,21 @@ internal class HashUtilsTest {
 
     @Test
     fun loadHash() {
-        assertEquals(HashUtils.loadHash(resource.openStream(), MD5), "98C37608A93DFF7E27035A76608F2EB1")
-        assertEquals(HashUtils.loadHash(resource.openStream(), SHA1), "43F193350BA0A730E8193863601D22F4C61EA21B")
+        assertEquals(HashUtils.loadStreamHash(resource.openStream(), MD5), "98C37608A93DFF7E27035A76608F2EB1")
+        assertEquals(HashUtils.loadStreamHash(resource.openStream(), SHA1), "43F193350BA0A730E8193863601D22F4C61EA21B")
         assertEquals(
-            HashUtils.loadHash(resource.openStream(), SHA256),
+            HashUtils.loadStreamHash(resource.openStream(), SHA256),
             "8DF21652A2C552D7E442B8A1FAEC71F8A12B71EAB72F582C1F67B330792561C3"
         )
         assertEquals(
-            HashUtils.loadHash(resource.openStream(), SHA384),
+            HashUtils.loadStreamHash(resource.openStream(), SHA384),
             "FB7BB3DB1DD16FC0FA60EAF8AE50F54B1146848382018F7E9BC42621AF28C6035B2CD085A65AEA0344C87451C50EF2D4"
         )
         assertEquals(
-            HashUtils.loadHash(resource.openStream(), SHA512),
+            HashUtils.loadStreamHash(resource.openStream(), SHA512),
             "268DBCBFABF0547DDD83B9141358AA82517FDA3A41BFFCBBE035237128A1187CC052A457E4D0C34646FB740A5BE5185CE0B85B35490FE6E910CE67586048DE93"
         )
-        assertEquals(HashUtils.loadHash(resource.openStream(), CRC32), "992D6F49")
+        assertEquals(HashUtils.loadStreamHash(resource.openStream(), CRC32), "992D6F49")
     }
 
     @Test
@@ -44,13 +44,5 @@ internal class HashUtilsTest {
             "268DBCBFABF0547DDD83B9141358AA82517FDA3A41BFFCBBE035237128A1187CC052A457E4D0C34646FB740A5BE5185CE0B85B35490FE6E910CE67586048DE93"
         )
         assertEquals(HashUtils.loadTextHash(data, method = CRC32), "992D6F49")
-    }
-
-    @Test
-    fun asyncLoadHash() {
-        HashUtils.asyncLoadHash(resource.openStream(), MD5) {
-            assertEquals(it, "98C37608A93DFF7E27035A76608F2EB1")
-        }
-        Thread.sleep(500)
     }
 }

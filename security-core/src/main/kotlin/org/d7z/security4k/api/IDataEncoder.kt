@@ -1,4 +1,4 @@
-package org.d7z.security4k.universal
+package org.d7z.security4k.api
 
 import java.io.InputStream
 import java.io.OutputStream
@@ -7,7 +7,7 @@ import java.nio.charset.Charset
 /**
  * 加密数据
  */
-interface Encoder {
+interface IDataEncoder {
 
     /**
      *

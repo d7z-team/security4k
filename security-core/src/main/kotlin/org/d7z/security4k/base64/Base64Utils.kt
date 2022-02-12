@@ -1,74 +1,31 @@
 package org.d7z.security4k.base64
 
-import java.io.ByteArrayOutputStream
-import java.io.InputStream
-import java.io.OutputStream
-import java.io.Reader
-import java.io.Writer
-import java.nio.charset.Charset
+import org.d7z.security4k.api.ITextDataCovert
 
+/**
+ * Base64 工具类
+ *
+ * 作为使用者，你需要明白 Base64/32 并非一种加/解密算法
+ *
+ */
 object Base64Utils {
-    private val impl: IBase64 = StringBase64Format()
+    /**
+     * 默认的 Base64 实现
+     */
+    val simpleBase64: ITextDataCovert = SimpleBase64Format(urlMode = false, mimeMode = false)
 
     /**
-     * Base64 编码
-     *
-     * @param data String 原始数据
-     * @param charset Charset 字符编码
-     * @return String 编码后数据
+     * Base64 - URL and Filename safe 实现
      */
-    fun encodeText(data: String, charset: Charset = Charsets.UTF_8, format: Boolean = false): String {
-        return encodeBytes(data.toByteArray(charset), format)
-    }
+    val urlBase64: ITextDataCovert = SimpleBase64Format(urlMode = true, mimeMode = false)
 
     /**
-     *
-     * Base64 解码
-     *
-     * @param data String 编码后数据
-     * @param charset Charset 解码的字符串编码
-     * @return String 解码后数据
+     * Base64 MIME 定长
      */
-    fun decodeText(data: String, charset: Charset = Charsets.UTF_8): String {
-        return decodeToBytes(data).toString(charset)
-    }
+    val mimeBase64: ITextDataCovert = SimpleBase64Format(urlMode = false, mimeMode = true)
 
     /**
-     *
-     * 编码数据为Base64
-     *
+     * Base64 MIME 定长 + URL and Filename safe 实现
      */
-    fun encodeStream(input: InputStream, output: Writer) {
-        impl.encode(input, output)
-    }
-
-    fun decodeStream(input: Reader, output: OutputStream) {
-        impl.decode(input, output)
-    }
-
-    fun encodeBytes(data: ByteArray, format: Boolean = false): String {
-        val bf = StringBuilder()
-        impl.encode(data.inputStream(), bf)
-        return if (format) {
-            val out = StringBuilder()
-            val line = CharArray(76)
-            val reader = bf.toString().reader()
-            while (true) {
-                val lineSize = reader.read(line)
-                if (lineSize <= 0) {
-                    break
-                }
-                out.append(line.concatToString(0, lineSize)).append("\r\n")
-            }
-            out.trimEnd().toString()
-        } else {
-            bf.toString()
-        }
-    }
-
-    fun decodeToBytes(base64Data: String): ByteArray {
-        val bf = ByteArrayOutputStream()
-        impl.decode(base64Data.replace(Regex("([\r\n])"), "").reader(), bf)
-        return bf.toByteArray()
-    }
+    val mimeUrlBase64: ITextDataCovert = SimpleBase64Format(urlMode = true, mimeMode = true)
 }

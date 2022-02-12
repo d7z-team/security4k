@@ -1,15 +1,20 @@
 package org.d7z.security4k.hash
 
+import org.d7z.security4k.api.IStreamCalculate
+import org.d7z.security4k.hash.impl.CRC32CHashCalculate
+import org.d7z.security4k.hash.impl.CRC32HashCalculate
+import org.d7z.security4k.hash.impl.SimpleHashCalculate
 import java.io.InputStream
 import java.nio.charset.Charset
 
+@Suppress("unused")
 object HashUtils {
     /**
      *
      * @property hashCalculate BaseHashCalculate
      * @constructor
      */
-    enum class METHOD(val hashCalculate: BaseHashCalculate) {
+    enum class METHOD(val hashCalculate: IStreamCalculate) {
         MD5(SimpleHashCalculate("md5")),
         SHA1(SimpleHashCalculate("sha1")),
         SHA224(SimpleHashCalculate("sha-224")),
@@ -27,8 +32,15 @@ object HashUtils {
      * @param method METHOD 哈希值算法
      * @return String 哈希值
      */
-    fun loadHash(input: InputStream, method: METHOD): String {
-        return method.hashCalculate.calculate(input)
+    fun loadStreamHash(input: InputStream, method: METHOD): String {
+        return method.hashCalculate.calculateToText(input)
+    }
+
+    /**
+     * 获取原始的哈希算法
+     */
+    fun loadHash(method: METHOD): IStreamCalculate {
+        return method.hashCalculate
     }
 
     /**
@@ -39,26 +51,6 @@ object HashUtils {
      * @return String 哈希值
      */
     fun loadTextHash(data: String, charset: Charset = Charsets.UTF_8, method: METHOD): String {
-        return loadHash(data.byteInputStream(charset), method)
-    }
-
-    /**
-     * 异步计算哈希值
-     *
-     * @param input InputStream 被计算的流
-     * @param method 哈希值计算算法
-     * @param hook Function1<String, Unit> 回调接口
-     */
-    fun asyncLoadHash(
-        input: InputStream,
-        method: METHOD,
-        hookRuntime: (Runnable) -> Unit = { Thread(it).run() },
-        hook: (String) -> Unit
-    ) {
-        val runnable = Runnable {
-            val calculate = loadHash(input, method)
-            hook(calculate)
-        }
-        hookRuntime(runnable)
+        return loadStreamHash(data.byteInputStream(charset), method)
     }
 }

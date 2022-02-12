@@ -1,9 +1,9 @@
-package org.d7z.security4k.asymmetric.universal
+package org.d7z.security4k.api
 
 /**
  * 密钥生成器
  */
-interface KeyGenerator {
+interface IKeyGenerator {
     /**
      *  公钥文本
      */

@@ -1,4 +1,4 @@
-package org.d7z.security4k.universal
+package org.d7z.security4k.api
 
 import java.io.InputStream
 import java.io.OutputStream
@@ -7,7 +7,7 @@ import java.nio.charset.Charset
 /**
  * 解密数据
  */
-interface Decoder {
+interface IDataDecoder {
     /**
      *
      * 解密数据

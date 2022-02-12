@@ -1,8 +1,9 @@
-package org.d7z.security4k.asymmetric.rsa
+package org.d7z.security4k.rsa
 
+import org.d7z.security4k.api.IDataDecoder
+import org.d7z.security4k.api.IDataEncoder
+import org.d7z.security4k.api.ITextDataCovert
 import org.d7z.security4k.base64.Base64Utils
-import org.d7z.security4k.universal.Decoder
-import org.d7z.security4k.universal.Encoder
 import org.d7z.security4k.utils.foreach
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -17,8 +18,9 @@ abstract class RSA(
     private val key: String,
     private val keyType: Int,
     protected val signAlgorithm: String,
-    private val algorithm: String
-) : Decoder, Encoder {
+    private val algorithm: String,
+    private val textDataCovert: ITextDataCovert = Base64Utils.simpleBase64,
+) : IDataDecoder, IDataEncoder {
 
     companion object {
         @JvmStatic
@@ -30,7 +32,7 @@ abstract class RSA(
 
     // 原始密钥
     protected val rsaKeyData by lazy {
-        Base64Utils.decodeToBytes(key)
+        textDataCovert.decodeToBytes(key)
     }
 
     private val encryptedBlockSize by lazy { newInitCipher(Cipher.ENCRYPT_MODE).getOutputSize(1) }
@@ -76,13 +78,13 @@ abstract class RSA(
 
     override fun decodeText(cipherText: String, charset: Charset): String {
         val stream = ByteArrayOutputStream()
-        decode(Base64Utils.decodeToBytes(cipherText).inputStream(), stream)
+        decode(textDataCovert.decodeToBytes(cipherText).inputStream(), stream)
         return stream.toString(charset)
     }
 
     override fun encodeText(plainText: String, charset: Charset): String {
         val stream = ByteArrayOutputStream()
         encode(plainText.toByteArray(charset).inputStream(), stream)
-        return Base64Utils.encodeBytes(stream.toByteArray(), true)
+        return textDataCovert.encodeBytes(stream.toByteArray())
     }
 }

@@ -1,4 +1,4 @@
-package org.d7z.security4k.asymmetric.universal
+package org.d7z.security4k.api
 
 import java.io.InputStream
 import java.nio.charset.Charset
@@ -6,7 +6,7 @@ import java.nio.charset.Charset
 /**
  * 签名的接口类
  */
-interface Sign {
+interface ISign {
     /**
      * 数据签名
      *

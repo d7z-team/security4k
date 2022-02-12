@@ -1,6 +1,7 @@
-package org.d7z.security4k.asymmetric.rsa
+package org.d7z.security4k.rsa
 
-import org.d7z.security4k.asymmetric.universal.KeyGenerator
+import org.d7z.security4k.api.IKeyGenerator
+import org.d7z.security4k.api.ITextDataCovert
 import org.d7z.security4k.base64.Base64Utils
 import java.security.KeyPairGenerator
 import java.security.SecureRandom
@@ -17,10 +18,12 @@ import java.security.interfaces.RSAPublicKey
  * @param random SecureRandom 随机数生成器
  * @constructor
  */
-class RsaKeyGenerator(
-    keySize: Int = 2048,
-    random: SecureRandom = SecureRandom.getInstanceStrong()
-) : KeyGenerator {
+class RSAKeyGenerator(
+    keySize: Int = 4096,
+    random: SecureRandom = SecureRandom.getInstanceStrong(),
+    private val textDataCovert: ITextDataCovert = Base64Utils.simpleBase64,
+
+) : IKeyGenerator {
     private var privateKey: RSAPrivateKey
     private var publicKey: RSAPublicKey
 
@@ -33,10 +36,10 @@ class RsaKeyGenerator(
     }
 
     override val publicKeyText: String by lazy {
-        Base64Utils.encodeBytes(publicKey.encoded, true)
+        textDataCovert.encodeBytes(publicKey.encoded)
     }
 
     override val privateKeyText: String by lazy {
-        Base64Utils.encodeBytes(privateKey.encoded, true)
+        textDataCovert.encodeBytes(privateKey.encoded)
     }
 }

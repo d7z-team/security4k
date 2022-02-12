@@ -1,6 +1,7 @@
-package org.d7z.security4k.asymmetric.rsa
+package org.d7z.security4k.rsa
 
-import org.d7z.security4k.asymmetric.universal.IPrivateKey
+import org.d7z.security4k.api.IPrivateKey
+import org.d7z.security4k.api.ITextDataCovert
 import org.d7z.security4k.base64.Base64Utils
 import org.d7z.security4k.utils.foreach
 import java.io.InputStream
@@ -13,18 +14,19 @@ import javax.crypto.Cipher
 /**
  * 私钥工具类
  */
-class RsaPrivate(
+class RSAPrivate(
     key: String,
     signAlgorithm: String = defaultSignAlgorithm,
-    algorithm: String = defaultAlgorithm
+    algorithm: String = defaultAlgorithm,
+    private val textDataCovert: ITextDataCovert = Base64Utils.simpleBase64,
 ) :
-    org.d7z.security4k.asymmetric.rsa.RSA(key, Cipher.PRIVATE_KEY, signAlgorithm, algorithm), IPrivateKey {
+    RSA(key, Cipher.PRIVATE_KEY, signAlgorithm, algorithm), IPrivateKey {
     override fun sign(input: InputStream, algorithm: String): String {
         val signature = newSignature(algorithm)
         input.foreach { bytes, i ->
             signature.update(bytes, 0, i)
         }
-        return Base64Utils.encodeBytes(signature.sign())
+        return textDataCovert.encodeBytes(signature.sign())
     }
 
     override fun sign(input: InputStream): String {
